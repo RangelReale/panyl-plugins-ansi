@@ -9,6 +9,8 @@ import (
 	"time"
 )
 
+var _ panyl.ProcessResult = (*AnsiOutput)(nil)
+
 type AnsiOutputSprintfFunc func(format string, a ...interface{}) string
 
 type AnsiOutput struct {
@@ -94,3 +96,5 @@ func (o *AnsiOutput) OnResult(p *panyl.Process) (cont bool) {
 
 	return true
 }
+
+func (o *AnsiOutput) OnFlush() {}

@@ -8,6 +8,8 @@ import (
 	"github.com/fatih/color"
 )
 
+var _ panyl.Log = (*AnsiLog)(nil)
+
 type AnsiLog struct {
 	ShowSource bool
 }

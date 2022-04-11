@@ -3,7 +3,7 @@ module github.com/RangelReale/panyl-plugins-ansi
 go 1.17
 
 require (
-	github.com/RangelReale/panyl v0.5.8
+	github.com/RangelReale/panyl v0.6.5
 	github.com/fatih/color v1.13.0
 )
 
