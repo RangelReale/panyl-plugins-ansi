@@ -4,9 +4,10 @@ import (
 	"bytes"
 	"encoding/json"
 	"fmt"
+	"time"
+
 	"github.com/RangelReale/panyl"
 	"github.com/fatih/color"
-	"time"
 )
 
 var _ panyl.ProcessResult = (*AnsiOutput)(nil)
@@ -98,3 +99,5 @@ func (o *AnsiOutput) OnResult(p *panyl.Process) (cont bool) {
 }
 
 func (o *AnsiOutput) OnFlush() {}
+
+func (o *AnsiOutput) OnClose() {}
