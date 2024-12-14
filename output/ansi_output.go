@@ -41,11 +41,11 @@ func (o *AnsiOutput) OnResult(p *panyl.Process) (cont bool) {
 
 	// level
 	var levelColor AnsiOutputSprintfFunc
-	level := p.Metadata.StringValue(panyl.Metadata_Level)
+	level := p.Metadata.StringValue(panyl.MetadataLevel)
 	switch level {
-	case panyl.MetadataLevel_DEBUG, panyl.MetadataLevel_INFO:
+	case panyl.MetadataLevelDEBUG, panyl.MetadataLevelINFO:
 		levelColor = o.ColorInformation
-	case panyl.MetadataLevel_WARNING:
+	case panyl.MetadataLevelWARNING:
 		levelColor = o.ColorWarning
 	case panyl.MetadataLevel_CRITICAL, panyl.MetadataLevel_FATAL:
 		levelColor = o.ColorError
@@ -55,12 +55,12 @@ func (o *AnsiOutput) OnResult(p *panyl.Process) (cont bool) {
 	}
 
 	// timestamp
-	if ts, ok := p.Metadata[panyl.Metadata_Timestamp]; ok {
+	if ts, ok := p.Metadata[panyl.MetadataTimestamp]; ok {
 		out.WriteString(fmt.Sprintf("%s ", ts.(time.Time).Local().Format("2006-01-02 15:04:05.000")))
 	}
 
 	// application
-	if application := p.Metadata.StringValue(panyl.Metadata_Application); application != "" {
+	if application := p.Metadata.StringValue(panyl.MetadataApplication); application != "" {
 		out.WriteString(fmt.Sprintf("| %s | ", application))
 	}
 
@@ -70,17 +70,17 @@ func (o *AnsiOutput) OnResult(p *panyl.Process) (cont bool) {
 	}
 
 	// format
-	if format := p.Metadata.StringValue(panyl.Metadata_Format); format != "" {
+	if format := p.Metadata.StringValue(panyl.MetadataFormat); format != "" {
 		out.WriteString(fmt.Sprintf("(%s) ", format))
 	}
 
 	// category
-	if category := p.Metadata.StringValue(panyl.Metadata_Category); category != "" {
+	if category := p.Metadata.StringValue(panyl.MetadataCategory); category != "" {
 		out.WriteString(fmt.Sprintf("{{%s}} ", category))
 	}
 
 	// message
-	if msg := p.Metadata.StringValue(panyl.Metadata_Message); msg != "" {
+	if msg := p.Metadata.StringValue(panyl.MetadataMessage); msg != "" {
 		out.WriteString(msg)
 	} else if p.Line != "" {
 		out.WriteString(p.Line)
