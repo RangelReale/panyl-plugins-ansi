@@ -1,9 +1,9 @@
-module github.com/RangelReale/panyl-plugins-ansi
+module github.com/RangelReale/panyl-plugins-ansi/v2
 
 go 1.23
 
 require (
-	github.com/RangelReale/panyl v0.9.1
+	github.com/RangelReale/panyl/v2 v2.0.0
 	github.com/fatih/color v1.18.0
 )
 
