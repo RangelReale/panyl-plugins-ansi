@@ -2,6 +2,7 @@ package output
 
 import (
 	"bytes"
+	"context"
 	"encoding/json"
 	"fmt"
 	"time"
@@ -36,7 +37,7 @@ func NewAnsiOutput(ansi bool) *AnsiOutput {
 	return ret
 }
 
-func (o *AnsiOutput) OnResult(p *panyl.Process) (cont bool) {
+func (o *AnsiOutput) OnResult(ctx context.Context, p *panyl.Process) (cont bool) {
 	var out bytes.Buffer
 
 	// level
@@ -47,7 +48,7 @@ func (o *AnsiOutput) OnResult(p *panyl.Process) (cont bool) {
 		levelColor = o.ColorInformation
 	case panyl.MetadataLevelWARNING:
 		levelColor = o.ColorWarning
-	case panyl.MetadataLevel_CRITICAL, panyl.MetadataLevel_FATAL:
+	case panyl.MetadataLevelERROR:
 		levelColor = o.ColorError
 	default:
 		level = "unknown"
@@ -98,6 +99,6 @@ func (o *AnsiOutput) OnResult(p *panyl.Process) (cont bool) {
 	return true
 }
 
-func (o *AnsiOutput) OnFlush() {}
+func (o *AnsiOutput) OnFlush(ctx context.Context) {}
 
-func (o *AnsiOutput) OnClose() {}
+func (o *AnsiOutput) OnClose(ctx context.Context) {}

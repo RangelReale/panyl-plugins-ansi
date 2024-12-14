@@ -2,7 +2,9 @@ package output
 
 import (
 	"bytes"
+	"context"
 	"fmt"
+
 	"github.com/RangelReale/panyl"
 	"github.com/RangelReale/panyl/util"
 	"github.com/fatih/color"
@@ -14,13 +16,13 @@ type AnsiLog struct {
 	ShowSource bool
 }
 
-func (l AnsiLog) LogSourceLine(n int, line, rawLine string) {
+func (l AnsiLog) LogSourceLine(ctx context.Context, n int, line, rawLine string) {
 	red := color.New(color.FgRed)
 
 	red.Printf("@@@ SOURCE LINE [%d]: '%s' @@@\n", n, line)
 }
 
-func (l AnsiLog) LogProcess(p *panyl.Process) {
+func (l AnsiLog) LogProcess(ctx context.Context, p *panyl.Process) {
 	green := color.New(color.FgGreen)
 
 	var lineno string
