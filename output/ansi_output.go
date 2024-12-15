@@ -11,7 +11,7 @@ import (
 	"github.com/fatih/color"
 )
 
-var _ panyl.ProcessResult = (*AnsiOutput)(nil)
+var _ panyl.Output = (*AnsiOutput)(nil)
 
 type AnsiOutputSprintfFunc func(format string, a ...interface{}) string
 
@@ -37,7 +37,7 @@ func NewAnsiOutput(ansi bool) *AnsiOutput {
 	return ret
 }
 
-func (o *AnsiOutput) OnResult(ctx context.Context, item *panyl.Item) (cont bool) {
+func (o *AnsiOutput) OnItem(ctx context.Context, item *panyl.Item) (cont bool) {
 	var out bytes.Buffer
 
 	// level
