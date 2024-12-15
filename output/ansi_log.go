@@ -10,7 +10,7 @@ import (
 	"github.com/fatih/color"
 )
 
-var _ panyl.Log = (*AnsiLog)(nil)
+var _ panyl.DebugLog = (*AnsiLog)(nil)
 
 type AnsiLog struct {
 	ShowSource bool
