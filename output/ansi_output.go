@@ -37,7 +37,7 @@ func NewAnsiOutput(ansi bool) *AnsiOutput {
 	return ret
 }
 
-func (o *AnsiOutput) OnResult(ctx context.Context, p *panyl.Process) (cont bool) {
+func (o *AnsiOutput) OnResult(ctx context.Context, p *panyl.Item) (cont bool) {
 	var out bytes.Buffer
 
 	// level

@@ -22,7 +22,7 @@ func (l AnsiLog) LogSourceLine(ctx context.Context, n int, line, rawLine string)
 	red.Printf("@@@ SOURCE LINE [%d]: '%s' @@@\n", n, line)
 }
 
-func (l AnsiLog) LogProcess(ctx context.Context, p *panyl.Process) {
+func (l AnsiLog) LogItem(ctx context.Context, p *panyl.Item) {
 	green := color.New(color.FgGreen)
 
 	var lineno string
