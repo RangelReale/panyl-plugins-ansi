@@ -37,12 +37,12 @@ func NewAnsiOutput(ansi bool) *AnsiOutput {
 	return ret
 }
 
-func (o *AnsiOutput) OnResult(ctx context.Context, p *panyl.Item) (cont bool) {
+func (o *AnsiOutput) OnResult(ctx context.Context, item *panyl.Item) (cont bool) {
 	var out bytes.Buffer
 
 	// level
 	var levelColor AnsiOutputSprintfFunc
-	level := p.Metadata.StringValue(panyl.MetadataLevel)
+	level := item.Metadata.StringValue(panyl.MetadataLevel)
 	switch level {
 	case panyl.MetadataLevelDEBUG, panyl.MetadataLevelINFO:
 		levelColor = o.ColorInformation
@@ -56,12 +56,12 @@ func (o *AnsiOutput) OnResult(ctx context.Context, p *panyl.Item) (cont bool) {
 	}
 
 	// timestamp
-	if ts, ok := p.Metadata[panyl.MetadataTimestamp]; ok {
+	if ts, ok := item.Metadata[panyl.MetadataTimestamp]; ok {
 		out.WriteString(fmt.Sprintf("%s ", ts.(time.Time).Local().Format("2006-01-02 15:04:05.000")))
 	}
 
 	// application
-	if application := p.Metadata.StringValue(panyl.MetadataApplication); application != "" {
+	if application := item.Metadata.StringValue(panyl.MetadataApplication); application != "" {
 		out.WriteString(fmt.Sprintf("| %s | ", application))
 	}
 
@@ -71,22 +71,22 @@ func (o *AnsiOutput) OnResult(ctx context.Context, p *panyl.Item) (cont bool) {
 	}
 
 	// format
-	if format := p.Metadata.StringValue(panyl.MetadataFormat); format != "" {
+	if format := item.Metadata.StringValue(panyl.MetadataFormat); format != "" {
 		out.WriteString(fmt.Sprintf("(%s) ", format))
 	}
 
 	// category
-	if category := p.Metadata.StringValue(panyl.MetadataCategory); category != "" {
+	if category := item.Metadata.StringValue(panyl.MetadataCategory); category != "" {
 		out.WriteString(fmt.Sprintf("{{%s}} ", category))
 	}
 
 	// message
-	if msg := p.Metadata.StringValue(panyl.MetadataMessage); msg != "" {
+	if msg := item.Metadata.StringValue(panyl.MetadataMessage); msg != "" {
 		out.WriteString(msg)
-	} else if p.Line != "" {
-		out.WriteString(p.Line)
-	} else if len(p.Data) > 0 {
-		dt, err := json.Marshal(p.Data)
+	} else if item.Line != "" {
+		out.WriteString(item.Line)
+	} else if len(item.Data) > 0 {
+		dt, err := json.Marshal(item.Data)
 		if err != nil {
 			fmt.Println(o.ColorInternalError("Error marshaling data to json: %s", err.Error()))
 			return
