@@ -17,10 +17,10 @@ type AnsiOutput struct {
 	ColorInformation, ColorWarning, ColorError, ColorInternalError, ColorUnknown AnsiOutputSprintfFunc
 }
 
-var _ panyl.Output = (*AnsiOutput)(nil)
+var _ panyl.Output = AnsiOutput{}
 
-func NewAnsiOutput(ansi bool) *AnsiOutput {
-	ret := &AnsiOutput{
+func NewAnsiOutput(ansi bool) AnsiOutput {
+	ret := AnsiOutput{
 		ColorError:         fmt.Sprintf,
 		ColorWarning:       fmt.Sprintf,
 		ColorInformation:   fmt.Sprintf,
@@ -37,7 +37,7 @@ func NewAnsiOutput(ansi bool) *AnsiOutput {
 	return ret
 }
 
-func (o *AnsiOutput) OnItem(ctx context.Context, item *panyl.Item) (cont bool) {
+func (o AnsiOutput) OnItem(ctx context.Context, item *panyl.Item) (cont bool) {
 	var out bytes.Buffer
 
 	// level
@@ -97,6 +97,6 @@ func (o *AnsiOutput) OnItem(ctx context.Context, item *panyl.Item) (cont bool) {
 	return true
 }
 
-func (o *AnsiOutput) OnFlush(ctx context.Context) {}
+func (o AnsiOutput) OnFlush(ctx context.Context) {}
 
-func (o *AnsiOutput) OnClose(ctx context.Context) {}
+func (o AnsiOutput) OnClose(ctx context.Context) {}

@@ -14,7 +14,7 @@ type AnsiLog struct {
 	ShowSource bool
 }
 
-var _ panyl.DebugLog = (*AnsiLog)(nil)
+var _ panyl.DebugLog = AnsiLog{}
 
 func (m AnsiLog) LogSourceLine(ctx context.Context, n int, line, rawLine string) {
 	red := color.New(color.FgRed)
