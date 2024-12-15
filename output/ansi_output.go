@@ -11,13 +11,13 @@ import (
 	"github.com/fatih/color"
 )
 
-var _ panyl.Output = (*AnsiOutput)(nil)
-
 type AnsiOutputSprintfFunc func(format string, a ...interface{}) string
 
 type AnsiOutput struct {
 	ColorInformation, ColorWarning, ColorError, ColorInternalError, ColorUnknown AnsiOutputSprintfFunc
 }
+
+var _ panyl.Output = (*AnsiOutput)(nil)
 
 func NewAnsiOutput(ansi bool) *AnsiOutput {
 	ret := &AnsiOutput{
@@ -66,9 +66,7 @@ func (o *AnsiOutput) OnItem(ctx context.Context, item *panyl.Item) (cont bool) {
 	}
 
 	// level
-	if level != "" {
-		out.WriteString(fmt.Sprintf("[%s] ", level))
-	}
+	out.WriteString(fmt.Sprintf("[%s] ", level))
 
 	// format
 	if format := item.Metadata.StringValue(panyl.MetadataFormat); format != "" {

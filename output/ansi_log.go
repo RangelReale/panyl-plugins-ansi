@@ -10,19 +10,19 @@ import (
 	"github.com/fatih/color"
 )
 
-var _ panyl.DebugLog = (*AnsiLog)(nil)
-
 type AnsiLog struct {
 	ShowSource bool
 }
 
-func (l AnsiLog) LogSourceLine(ctx context.Context, n int, line, rawLine string) {
+var _ panyl.DebugLog = (*AnsiLog)(nil)
+
+func (m AnsiLog) LogSourceLine(ctx context.Context, n int, line, rawLine string) {
 	red := color.New(color.FgRed)
 
 	red.Printf("@@@ SOURCE LINE [%d]: '%s' @@@\n", n, line)
 }
 
-func (l AnsiLog) LogItem(ctx context.Context, item *panyl.Item) {
+func (m AnsiLog) LogItem(ctx context.Context, item *panyl.Item) {
 	green := color.New(color.FgGreen)
 
 	var lineno string
@@ -51,7 +51,7 @@ func (l AnsiLog) LogItem(ctx context.Context, item *panyl.Item) {
 		_, _ = buf.WriteString(fmt.Sprintf("Line: \"%s\"", item.Line))
 	}
 
-	if l.ShowSource && len(item.Source) > 0 {
+	if m.ShowSource && len(item.Source) > 0 {
 		if buf.Len() > 0 {
 			_, _ = buf.WriteString(" - ")
 		}
